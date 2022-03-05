@@ -45,11 +45,10 @@ function getNYTCrossword(date) {
 async function main() {
   const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
   console.log(`Checking today's crossword.`);
-  date.setDate(date.getDate() + 2);
   try {
     await getNYTCrossword(date);
   } catch (error) {
-    console.log(`Error: ${error}`);
+    console.log(`NYT_COOKIE likely expired. Error: ${error}`);
     process.exit(1);
   }
   console.log(`Downloading tomorrow's crossword.`);
@@ -80,7 +79,7 @@ async function main() {
     console.log(`Successfully uploaded ${response.result.content_hash}.`);
     return;
   } catch (error) {
-    console.log(`Error: ${error}`);
+    console.log(`DROPBOX_ACCESS_TOKEN likely expired. Error: ${error}`);
     process.exit(1);
   }
 }
