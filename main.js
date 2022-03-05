@@ -38,6 +38,7 @@ function getNYTCrossword(date) {
     req.on('error', (err) => {
       reject(err);
     });
+    req.end();
   });
 }
 
