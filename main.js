@@ -23,7 +23,6 @@ function getNYTCrossword(date) {
       if (res.statusCode === 200) {
         const data = [];
         res.on('error', (err) => {
-          req.end();
           reject(err);
         });
         res.on('data', (chunk) => {
@@ -33,12 +32,10 @@ function getNYTCrossword(date) {
           resolve(Buffer.concat(data));
         });
       } else {
-        req.end();
         reject(res.statusCode);
       }
     });
     req.on('error', (err) => {
-      req.end();
       reject(err);
     });
   });
