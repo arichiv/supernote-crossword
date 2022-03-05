@@ -13,9 +13,7 @@ const dbx = new dropbox.Dropbox({
 
 function getNYTCrossword(date) {
   const d = moment(date);
-
   console.log('Attempting to download crossword...');
-
   const req = https.request({
     protocol: 'https:',
     host: 'www.nytimes.com',
@@ -28,18 +26,14 @@ function getNYTCrossword(date) {
   }, (res) => {
     if (res.statusCode === 200) {
       const data = [];
-
       res.on('error', (err) => {
         console.log(err);
       });
-
       res.on('data', (chunk) => {
         data.push(chunk);
       });
-
       res.on('end', () => {
         console.log('Successfully downloaded crossword');
-
         dbx.filesUpload({
           path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${d.format('YYYYMMDD_ddd')}-crossword.pdf`),
           contents: Buffer.concat(data),
@@ -55,21 +49,17 @@ function getNYTCrossword(date) {
       console.log(`Could not get crossword. Status code: ${res.statusCode}`);
     }
   });
-
   req.on('error', (err) => {
     console.log(err);
   });
-
   req.end();
 }
 
 function getTomorrowsNYTCrossword() {
   const today = new Date();
   const todayNYTime = today.toLocaleString('en-US', { timeZone: 'America/New_York' });
-
   const tomorrow = new Date(todayNYTime);
   tomorrow.setDate(tomorrow.getDate());
-
   getNYTCrossword(tomorrow);
 }
 
