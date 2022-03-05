@@ -63,7 +63,7 @@ async function main() {
   console.log(`Checking if file exists.`);
   console.log(`Uploading file.`);
   try {
-    await dbx.filesUpload({
+    response = await dbx.filesUpload({
       path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-crossword.pdf`),
       contents: data,
     });
