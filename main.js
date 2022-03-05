@@ -55,7 +55,7 @@ async function main() {
   }
   console.log(`Downloading tomorrow's crossword.`);
   date.setDate(date.getDate() + 1);
-  data = None;
+  data = undefined;
   try {
     data = getNYTCrossword(date);
   } catch (error) {
