@@ -60,7 +60,6 @@ async function main() {
     console.log(`Tomorrow's crossword is not yet released`);
     return;
   }
-  console.log(`Checking if file exists.`);
   console.log(`Uploading file.`);
   try {
     response = await dbx.filesUpload({
