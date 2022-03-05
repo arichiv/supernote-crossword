@@ -29,6 +29,8 @@ function getNYTCrossword(date) {
           data.push(chunk);
         });
         res.on('end', () => {
+              console.log(Buffer.concat(data));
+
           resolve(Buffer.concat(data));
         });
       } else {
@@ -62,6 +64,7 @@ async function main() {
   console.log(`Checking if file exists.`);
   console.log(`Uploading file.`);
   try {
+    console.log(data);
     await dbx.filesUpload({
       path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-crossword.pdf`),
       contents: data,
