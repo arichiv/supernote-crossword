@@ -8,10 +8,10 @@ const dbx = new dropbox.Dropbox({
   accessToken: process.env.DROPBOX_ACCESS_TOKEN,
 });
 
-async function getNYTCrossword(date) {
+function getNYTCrossword(date) {
   const d = moment(date);
   console.log('Attempting to download crossword...');
-  const res = await https.request({
+  const req = https.request({
     protocol: 'https:',
     host: 'www.nytimes.com',
     path: `/svc/crosswords/v2/puzzle/print/${d.format('MMMDDYY')}.pdf`,
@@ -20,43 +20,49 @@ async function getNYTCrossword(date) {
       Referer: 'https://www.nytimes.com/crosswords/archive/daily',
       Cookie: process.env.NYT_COOKIE,
     },
-  });
-  if (res.statusCode === 200) {
-    const data = [];
-    res.on('error', (err) => {
-      console.log(err);
-      process.exit(1);
-    });
-    res.on('data', (chunk) => {
-      data.push(chunk);
-    });
-    res.on('end', () => {
-      console.log('Successfully downloaded crossword');
-      dbx.filesUpload({
-        path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${d.format('YYYY-MM-DD-ddd')}-crossword.pdf`),
-        contents: Buffer.concat(data),
-      }).then((response) => {
-        console.log('Successfully uploaded crossword');
-        console.log(`Content hash: ${response.result.content_hash}`);
-      }).catch((err) => {
-        console.log('Error writing to dropbox');
+  }, (res) => {
+    if (res.statusCode === 200) {
+      const data = [];
+      res.on('error', (err) => {
         console.log(err);
         process.exit(1);
       });
-    });
-  } else {
-    console.log(`Could not get crossword. Status code: ${res.statusCode}`);
-    // Use status code 0 since it may just be too early to get the crossword.
-    process.exit(0);
-  }
+      res.on('data', (chunk) => {
+        data.push(chunk);
+      });
+      res.on('end', () => {
+        console.log('Successfully downloaded crossword');
+        dbx.filesUpload({
+          path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${d.format('YYYY-MM-DD-ddd')}-crossword.pdf`),
+          contents: Buffer.concat(data),
+        }).then((response) => {
+          console.log('Successfully uploaded crossword');
+          console.log(`Content hash: ${response.result.content_hash}`);
+        }).catch((err) => {
+          console.log('Error writing to dropbox');
+          console.log(err);
+          process.exit(1);
+        });
+      });
+    } else {
+      console.log(`Could not get crossword. Status code: ${res.statusCode}`);
+      // Use status code 0 since it may just be too early to get the crossword.
+      process.exit(0);
+    }
+  });
+  req.on('error', (err) => {
+    console.log(err);
+    process.exit(1);
+  });
+  req.end();
 }
 
-async function getTomorrowsNYTCrossword() {
+function getTomorrowsNYTCrossword() {
   const today = new Date();
   const todayNYTime = today.toLocaleString('en-US', { timeZone: 'America/New_York' });
   const tomorrow = new Date(todayNYTime);
   tomorrow.setDate(tomorrow.getDate() + 1);
-  await getNYTCrossword(tomorrow);
+  getNYTCrossword(tomorrow);
 }
 
-getTomorrowsNYTCrossword().then(() => process.exit(0));
+getTomorrowsNYTCrossword();
