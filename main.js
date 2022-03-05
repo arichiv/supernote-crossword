@@ -13,7 +13,7 @@ function getNYTCrossword(date) {
     const req = https.request({
       protocol: 'https:',
       host: 'www.nytimes.com',
-      path: `/svc/crosswords/v2/puzzle/print/${d.format('MMMDDYY')}.pdf`,
+      path: `/svc/crosswords/v2/puzzle/print/${date.format('MMMDDYY')}.pdf`,
       method: 'GET',
       headers: {
         Referer: 'https://www.nytimes.com/crosswords/archive/daily',
