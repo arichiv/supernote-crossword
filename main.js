@@ -35,7 +35,7 @@ function getNYTCrossword(date) {
       res.on('end', () => {
         console.log('Successfully downloaded crossword');
         dbx.filesUpload({
-          path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${d.format('YYYYMMDD_ddd')}-crossword.pdf`),
+          path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${d.format('YYYY-MM-DD-ddd')}-crossword.pdf`),
           contents: Buffer.concat(data),
         }).then((response) => {
           console.log('Successfully uploaded crossword');
