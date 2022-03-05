@@ -7,12 +7,6 @@ const https = require('https');
 const moment = require('moment');
 const path = require('path');
 
-// Instantiate the Dropbox instance.
-//
-// Set DROPBOX_ACCESS_TOKEN to an access token that you've
-// generated for your Dropbox account.
-//
-// See https://dropbox.tech/developers/generate-an-access-token-for-your-own-account
 const dbx = new dropbox.Dropbox({
   accessToken: process.env.DROPBOX_ACCESS_TOKEN,
 });
@@ -22,11 +16,6 @@ function getNYTCrossword(date) {
 
   console.log('Attempting to download crossword...');
 
-  // Get the crossword.
-  //
-  // Set NYT_COOKIE to the return value of `document.cookie`
-  // when logged into your account on nytimes.com. This
-  // cookie will eventually expire and need to be set again.
   const req = https.request({
     protocol: 'https:',
     host: 'www.nytimes.com',
@@ -51,12 +40,6 @@ function getNYTCrossword(date) {
       res.on('end', () => {
         console.log('Successfully downloaded crossword');
 
-        // The file has successfully downloaded. Upload it
-        // to Dropbox.
-        //
-        // Set SUPERNOTE_UPLOAD_PATH to the path where the
-        // PDFs should be uploaded on Dropbox. This should
-        // look something like "/Supernote/Document/Crosswords".
         dbx.filesUpload({
           path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${d.format('YYYYMMDD_ddd')}-crossword.pdf`),
           contents: Buffer.concat(data),
