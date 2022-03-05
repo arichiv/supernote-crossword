@@ -1,7 +1,3 @@
-/**
- * Derived from https://nathanbuchar.com/automatically-uploading-the-nyt-crossword-supernote/
- */
-
 const dropbox = require('dropbox');
 const https = require('https');
 const moment = require('moment');
