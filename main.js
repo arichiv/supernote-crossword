@@ -6,6 +6,7 @@ const dropbox = require('dropbox');
 const https = require('https');
 const moment = require('moment');
 const path = require('path');
+const process = require('process');
 
 const dbx = new dropbox.Dropbox({
   accessToken: process.env.DROPBOX_ACCESS_TOKEN,
@@ -28,6 +29,7 @@ function getNYTCrossword(date) {
       const data = [];
       res.on('error', (err) => {
         console.log(err);
+        process.exit(1);
       });
       res.on('data', (chunk) => {
         data.push(chunk);
@@ -43,14 +45,17 @@ function getNYTCrossword(date) {
         }).catch((err) => {
           console.log('Error writing to dropbox');
           console.log(err);
+          process.exit(1);
         });
       });
     } else {
       console.log(`Could not get crossword. Status code: ${res.statusCode}`);
+      process.exit(1);
     }
   });
   req.on('error', (err) => {
     console.log(err);
+    process.exit(1);
   });
   req.end();
 }
@@ -59,7 +64,7 @@ function getTomorrowsNYTCrossword() {
   const today = new Date();
   const todayNYTime = today.toLocaleString('en-US', { timeZone: 'America/New_York' });
   const tomorrow = new Date(todayNYTime);
-  tomorrow.setDate(tomorrow.getDate());
+  tomorrow.setDate(tomorrow.getDate() + 1);
   getNYTCrossword(tomorrow);
 }
 
