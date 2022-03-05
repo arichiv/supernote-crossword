@@ -29,8 +29,6 @@ function getNYTCrossword(date) {
           data.push(chunk);
         });
         res.on('end', () => {
-              console.log(Buffer.concat(data));
-
           resolve(Buffer.concat(data));
         });
       } else {
@@ -47,7 +45,7 @@ async function main() {
   const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
   console.log(`Checking today's crossword.`);
   try {
-    getNYTCrossword(date);
+    await getNYTCrossword(date);
   } catch (error) {
     console.log(`NYT_COOKIE has expired. Error: ${error}`);
     process.exit(1);
@@ -56,7 +54,7 @@ async function main() {
   date.setDate(date.getDate() + 1);
   data = undefined;
   try {
-    data = getNYTCrossword(date);
+    data = await getNYTCrossword(date);
   } catch (error) {
     console.log(`Tomorrow's crossword is not yet released`);
     return;
@@ -64,7 +62,6 @@ async function main() {
   console.log(`Checking if file exists.`);
   console.log(`Uploading file.`);
   try {
-    console.log(data);
     await dbx.filesUpload({
       path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-crossword.pdf`),
       contents: data,
