@@ -47,6 +47,7 @@ async function main() {
   console.log(`Checking today's crossword.`);
   try {
     await getNYTCrossword(date);
+    console.log(`Successfully checked today's crossword.`);
   } catch (error) {
     console.log(`NYT_COOKIE likely expired. Error: ${error}`);
     process.exit(1);
@@ -56,6 +57,7 @@ async function main() {
   data = undefined;
   try {
     data = await getNYTCrossword(date);
+    console.log(`Successfully downloaded tomorrow's crossword.`);
   } catch (error) {
     console.log(`Tomorrow's crossword is not yet released.`);
     return;
