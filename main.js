@@ -46,7 +46,8 @@ function getNYTCrossword(date) {
       });
     } else {
       console.log(`Could not get crossword. Status code: ${res.statusCode}`);
-      process.exit(1);
+      // Use status code 0 since it may just be too early to get the crossword.
+      process.exit(0);
     }
   });
   req.on('error', (err) => {
