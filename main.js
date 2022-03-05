@@ -45,11 +45,11 @@ function getNYTCrossword(date) {
 async function main() {
   const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
   console.log(`Checking today's crossword.`);
-  date.setDate(date.getDate() + 1);
+  date.setDate(date.getDate() + 2);
   try {
     await getNYTCrossword(date);
   } catch (error) {
-    console.log(`NYT_COOKIE has expired. Error: ${error}`);
+    console.log(`Error: ${error}`);
     process.exit(1);
   }
   console.log(`Downloading tomorrow's crossword.`);
@@ -58,7 +58,7 @@ async function main() {
   try {
     data = await getNYTCrossword(date);
   } catch (error) {
-    console.log(`Tomorrow's crossword is not yet released`);
+    console.log(`Tomorrow's crossword is not yet released.`);
     return;
   }
   console.log(`Checking if file exists.`);
