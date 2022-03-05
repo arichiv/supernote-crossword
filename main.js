@@ -85,7 +85,7 @@ function getTomorrowsNYTCrossword() {
   const todayNYTime = today.toLocaleString('en-US', { timeZone: 'America/New_York' });
 
   const tomorrow = new Date(todayNYTime);
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setDate(tomorrow.getDate());
 
   getNYTCrossword(tomorrow);
 }
