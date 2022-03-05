@@ -30,7 +30,7 @@ function getNYTCrossword(date) {
           data.push(chunk);
         });
         res.on('end', () => {
-          resolve(Buffer.concat(data)),
+          resolve(Buffer.concat(data));
         });
       } else {
         req.end();
