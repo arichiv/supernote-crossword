@@ -1,5 +1,5 @@
 {
-  "name": "crossword-supernote",
+  "name": "supernote-nytc",
   "version": "1.0.0",
   "description": "Uploads nyc crossword to dropbox folder",
   "repository": "https://github.com/arichiv/crossword-supernote.git",
