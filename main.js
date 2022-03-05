@@ -60,6 +60,16 @@ async function main() {
     console.log(`Tomorrow's crossword is not yet released`);
     return;
   }
+  console.log(`Checking if file exists.`);
+  try {
+    await dbx.filesGetMetadata({
+      path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-crossword.pdf`),
+    });
+    console.log(`File already uploaded.`);
+    return;
+  } catch (error) {
+    console.log(`File not yet uploaded.`);
+  }
   console.log(`Uploading file.`);
   try {
     response = await dbx.filesUpload({
