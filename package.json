@@ -1,0 +1,15 @@
+{
+  "name": "crossword-supernote",
+  "version": "1.0.0",
+  "description": "Uploads nyc crossword to dropbox folder",
+  "repository": "https://github.com/arichiv/crossword-supernote.git",
+  "author": "Ari Chivukula <ari.c@icloud.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dropbox": "10.26.0",
+    "moment": "2.29.1"
+  },
+  "bin": {
+    "crossword-supernote": "main.js"
+  }
+}
