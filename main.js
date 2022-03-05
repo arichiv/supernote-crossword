@@ -66,13 +66,13 @@ async function main() {
   console.log(`Uploading file.`);
   try {
     await dbx.filesUpload({
-      path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${d.format('YYYY-MM-DD-ddd')}-crossword.pdf`),
+      path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-crossword.pdf`),
       contents: data,
     });
     console.log(`Successfully uploaded ${response.result.content_hash}.`);
     return;
   } catch (error) {
-    console.log(`Error: ${err}`);
+    console.log(`Error: ${error}`);
     process.exit(1);
   }
 }
