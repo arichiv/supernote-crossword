@@ -1,8 +1,8 @@
 {
   "name": "supernote-nytc",
   "version": "1.0.0",
-  "description": "Uploads nyc crossword to dropbox folder",
-  "repository": "https://github.com/arichiv/crossword-supernote.git",
+  "description": "Downloads tomorrow's NYT crossword into a designated Dropbox folder.",
+  "repository": "https://github.com/arichiv/supernote-nytc.git",
   "author": "Ari Chivukula <ari.c@icloud.com>",
   "license": "MIT",
   "dependencies": {
