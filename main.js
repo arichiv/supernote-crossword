@@ -65,7 +65,7 @@ async function nytc() {
   console.log(`Checking if file exists.`);
   try {
     await dbx.filesGetMetadata({
-      path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-nytc.pdf`),
+      path: path.join(process.env.DROPBOX_NYTC_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-nytc.pdf`),
     });
     console.log(`File already uploaded.`);
     return;
@@ -75,7 +75,7 @@ async function nytc() {
   console.log(`Uploading file.`);
   try {
     response = await dbx.filesUpload({
-      path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-nytc.pdf`),
+      path: path.join(process.env.DROPBOX_NYTC_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-nytc.pdf`),
       contents: data,
     });
     console.log(`Successfully uploaded ${response.result.content_hash}.`);
