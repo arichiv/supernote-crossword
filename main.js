@@ -53,7 +53,7 @@ async function nytc() {
     process.exit(1);
   }
   console.log(`Downloading tomorrow's crossword.`);
-  date.setDate(date.getDate() + 1);
+  //date.setDate(date.getDate() + 1);
   data = undefined;
   try {
     data = await getNYTC(date);
@@ -119,7 +119,7 @@ function getWSJC(date) {
 async function wsjc() {
   const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
   console.log(`Downloading tomorrow's crossword.`);
-  date.setDate(date.getDate() + 1);
+  //date.setDate(date.getDate() + 1);
   data = undefined;
   try {
     data = await getWSJC(date);
