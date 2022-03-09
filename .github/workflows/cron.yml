@@ -16,6 +16,7 @@ jobs:
     - shell: bash
       env:
         DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
+        DROPBOX_NYTC_PATH: ${{ secrets.DROPBOX_NYTC_PATH }}
+        DROPBOX_WSJC_PATH: ${{ secrets.DROPBOX_WSJC_PATH }}
         NYT_COOKIE: ${{ secrets.NYT_COOKIE }}
-        SUPERNOTE_UPLOAD_PATH: ${{ secrets.SUPERNOTE_UPLOAD_PATH }}
       run: node main.js
