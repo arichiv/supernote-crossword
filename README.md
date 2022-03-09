@@ -1,4 +1,4 @@
-# supernote-nytc
+# supernote-crossword
 Downloads tomorrow's NYT crossword into a designated Dropbox folder.
 
 ## Instructions:
