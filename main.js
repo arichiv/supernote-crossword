@@ -8,7 +8,7 @@ const dbx = new dropbox.Dropbox({
   accessToken: process.env.DROPBOX_ACCESS_TOKEN,
 });
 
-function getNYTCrossword(date) {
+function getNYTC(date) {
   return new Promise((resolve, reject) => {
     const req = https.request({
       protocol: 'https:',
@@ -42,11 +42,11 @@ function getNYTCrossword(date) {
   });
 }
 
-async function main() {
+async function nytc() {
   const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
   console.log(`Checking today's crossword.`);
   try {
-    await getNYTCrossword(date);
+    await getNYTC(date);
     console.log(`Successfully checked today's crossword.`);
   } catch (error) {
     console.log(`NYT_COOKIE likely expired. Error: ${error}`);
@@ -56,7 +56,7 @@ async function main() {
   date.setDate(date.getDate() + 1);
   data = undefined;
   try {
-    data = await getNYTCrossword(date);
+    data = await getNYTC(date);
     console.log(`Successfully downloaded tomorrow's crossword.`);
   } catch (error) {
     console.log(`Tomorrow's crossword is not yet released.`);
@@ -65,7 +65,7 @@ async function main() {
   console.log(`Checking if file exists.`);
   try {
     await dbx.filesGetMetadata({
-      path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-crossword.pdf`),
+      path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-nytc.pdf`),
     });
     console.log(`File already uploaded.`);
     return;
@@ -75,7 +75,7 @@ async function main() {
   console.log(`Uploading file.`);
   try {
     response = await dbx.filesUpload({
-      path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-crossword.pdf`),
+      path: path.join(process.env.SUPERNOTE_UPLOAD_PATH, `${moment(date).format('YYYY-MM-DD-ddd')}-nytc.pdf`),
       contents: data,
     });
     console.log(`Successfully uploaded ${response.result.content_hash}.`);
@@ -84,6 +84,10 @@ async function main() {
     console.log(`DROPBOX_ACCESS_TOKEN likely expired. Error: ${error}`);
     process.exit(1);
   }
+}
+
+async function main() {
+  await nytc();
 }
 
 main().then(() => process.exit(0));
