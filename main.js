@@ -43,22 +43,22 @@ function getNYTC(date) {
 }
 
 async function nytc(date) {
-  console.log(`Checking today's crossword.`);
+  console.log(`Checking ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   try {
     await getNYTC(date);
-    console.log(`Successfully checked today's crossword.`);
+    console.log(`Successfully checked ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   } catch (error) {
     console.log(`NYT_COOKIE likely expired. Error: ${error}`);
     process.exit(1);
   }
-  console.log(`Downloading tomorrow's crossword.`);
+  console.log(`Downloading ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   date.setDate(date.getDate() + 1);
   data = undefined;
   try {
     data = await getNYTC(date);
-    console.log(`Successfully downloaded tomorrow's crossword.`);
+    console.log(`Successfully downloaded ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   } catch (error) {
-    console.log(`Tomorrow's crossword is not yet released.`);
+    console.log(`${moment(date).format('YYYY-MM-DD')}'s crossword is not yet released.`);
     return;
   }
   console.log(`Checking if file exists.`);
@@ -116,14 +116,14 @@ function getWSJC(date) {
 }
 
 async function wsjc(date) {
-  console.log(`Downloading tomorrow's crossword.`);
+  console.log(`Downloading ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   date.setDate(date.getDate() + 1);
   data = undefined;
   try {
     data = await getWSJC(date);
-    console.log(`Successfully downloaded tomorrow's crossword.`);
+    console.log(`Successfully downloaded ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   } catch (error) {
-    console.log(`Tomorrow's crossword is not yet released.`);
+    console.log(`${moment(date).format('YYYY-MM-DD')}'s crossword is not yet released.`);
     return;
   }
   console.log(`Checking if file exists.`);
