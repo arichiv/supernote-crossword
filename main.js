@@ -42,8 +42,7 @@ function getNYTC(date) {
   });
 }
 
-async function nytc() {
-  const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
+async function nytc(date) {
   console.log(`Checking today's crossword.`);
   try {
     await getNYTC(date);
@@ -116,8 +115,7 @@ function getWSJC(date) {
   });
 }
 
-async function wsjc() {
-  const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
+async function wsjc(date) {
   console.log(`Downloading tomorrow's crossword.`);
   date.setDate(date.getDate() + 1);
   data = undefined;
@@ -153,10 +151,11 @@ async function wsjc() {
 }
 
 async function main() {
+  const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
   console.log(`NYTC Block`);
-  await nytc();
+  await nytc(date);
   console.log(`WSJC Block`);
-  await wsjc();
+  await wsjc(date);
 }
 
 main().then(() => process.exit(0));
