@@ -51,8 +51,8 @@ async function nytc(date) {
     console.log(`NYT_COOKIE likely expired. Error: ${error}`);
     process.exit(1);
   }
-  console.log(`Downloading ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   date.setDate(date.getDate() + 1);
+  console.log(`Downloading ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   data = undefined;
   try {
     data = await getNYTC(date);
@@ -116,8 +116,8 @@ function getWSJC(date) {
 }
 
 async function wsjc(date) {
-  console.log(`Downloading ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   date.setDate(date.getDate() + 1);
+  console.log(`Downloading ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   data = undefined;
   try {
     data = await getWSJC(date);
