@@ -152,10 +152,13 @@ async function wsjc(date) {
 
 async function main() {
   const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  for (let i = 0; i < 30; i++) {
+  date.setDate(date.getDate() - 1);
   console.log(`NYTC Block`);
   await nytc(new Date(date.getTime()));
   console.log(`WSJC Block`);
   await wsjc(new Date(date.getTime()));
+  }
 }
 
 main().then(() => process.exit(0));
