@@ -1,5 +1,5 @@
 # supernote-crossword
-Downloads tomorrow's NYT crossword into a designated Dropbox folder.
+Downloads tomorrow's crosswords into a designated Dropbox folder.
 
 ## Instructions:
 1. Fork
