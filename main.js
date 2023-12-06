@@ -150,12 +150,19 @@ async function wsjc(date) {
   }
 }
 
-async function main() {
-  const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
+async function download(date) {
   console.log(`NYTC Block`);
   await nytc(new Date(date.getTime()));
   console.log(`WSJC Block`);
   await wsjc(new Date(date.getTime()));
+}
+
+async function main() {
+  const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  for (let i = 0; i < 60; i++) {
+    await download(date);
+    date.setDate(date.getDate() - 1);
+  }
 }
 
 main().then(() => process.exit(0));
