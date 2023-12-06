@@ -6,7 +6,7 @@
   "author": "Ari Chivukula <ari.c@icloud.com>",
   "license": "MIT",
   "dependencies": {
-    "dropbox": "10.29.*",
+    "dropbox": "10.34.*",
     "moment": "2.29.*"
   },
   "bin": "./main.js"
