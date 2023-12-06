@@ -159,7 +159,7 @@ async function download(date) {
 
 async function main() {
   const date = new Date((new Date()).toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < 45; i++) {
     await download(date);
     date.setDate(date.getDate() - 1);
   }
