@@ -33,9 +33,6 @@ function getNYTC(date) {
         });
       } else {
         console.log(res);
-        res.on('data', (chunk) => {
-          console.log(chunk);
-        });
         reject(res.statusCode);
       }
     });
