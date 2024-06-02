@@ -32,7 +32,11 @@ function getNYTC(date) {
           resolve(Buffer.concat(data));
         });
       } else {
+        console.log('cookies:', process.env.NYT_COOKIE);
         console.log('headers:', res.headers);
+        res.on('data', (chunk) => {
+          console.log(chunk);
+        });
         reject(res.statusCode);
       }
     });
