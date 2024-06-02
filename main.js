@@ -32,7 +32,6 @@ function getNYTC(date) {
           resolve(Buffer.concat(data));
         });
       } else {
-        console.log(res);
         reject(res.statusCode);
       }
     });
