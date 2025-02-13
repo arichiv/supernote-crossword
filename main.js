@@ -5,7 +5,9 @@ const path = require('path');
 const process = require('process');
 
 const dbx = new dropbox.Dropbox({
-  accessToken: process.env.DROPBOX_ACCESS_TOKEN,
+  clientId: process.env.DROPBOX_APP_KEY,
+  clientSecret: process.env.DROPBOX_APP_SECRET,
+  refreshToken: process.env.DROPBOX_REFRESH_TOKEN,
 });
 
 function getNYTC(date) {
