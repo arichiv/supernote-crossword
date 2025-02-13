@@ -82,7 +82,7 @@ async function nytc(date) {
     console.log(`Successfully uploaded ${response.result.content_hash}.`);
     return;
   } catch (error) {
-    console.log(`DROPBOX_ACCESS_TOKEN likely expired. Error: ${error}`);
+    console.log(`DROPBOX_REFRESH_TOKEN likely invalid. Error: ${error}`);
     process.exit(1);
   }
 }
