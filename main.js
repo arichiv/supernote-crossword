@@ -11,7 +11,6 @@ const dbx = new dropbox.Dropbox({
 });
 
 function getNYTC(date) {
-  console.log(`/svc/crosswords/v2/puzzle/print/${moment(date).format('MMMDDYY')}.pdf`);
   return new Promise((resolve, reject) => {
     const req = https.request({
       protocol: 'https:',
