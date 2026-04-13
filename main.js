@@ -51,7 +51,7 @@ async function nytc(date) {
     console.log(`Successfully checked ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
   } catch (error) {
     console.log(`NYT_COOKIE likely expired. Error: ${error}`);
-    //process.exit(1);
+    process.exit(1);
   }
   date.setDate(date.getDate() + 1);
   console.log(`Downloading ${moment(date).format('YYYY-MM-DD')}'s crossword.`);
